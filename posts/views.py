@@ -14,11 +14,34 @@ def create_post(request):
     form = PostForm()
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
             return redirect("posts:posts")
 
 
 
-    return render(request, 'posts/createpost.html', {"form":form} )   
+    return render(request, 'posts/createpost.html', {"form":form} )
+
+def edit_post(request, pk):
+    post = Post.objects.get(id=pk)
+    form = PostForm(instance=post)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            form.save()
+            return redirect("posts:posts")
+    return render(request, 'posts/createpost.html', {'form': form} )    
+
+        
+    
+def delete_post(request, pk):
+    post = Post.objects.get(id=pk)
+
+    if request.method == "POST":
+        post.delete()
+        return redirect("posts:posts")
+    return render(request, 'posts/delete_post.html', {'post':post} )
+    

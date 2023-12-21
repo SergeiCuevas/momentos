@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+    <div class="profile-form-container">
+        <h5 class="card-title" >¿Estás seguro de borrarlo?</h5>
+        <p class="card-text" >¡Esta acción no se puede deshacer!</p>
+        <form method="POST" action=" {% url 'posts:delete-post' post.pk %} ">
+            {% csrf_token %}
+            <a class="btn btn-primary " href="{% url 'posts:posts' %}" > No borrar</a>
+            <button type="submit" class="btn btn=primary mt-2" >Borrar</button>
+        </form>
+
+
+    </div>
+
+{% endblock %}

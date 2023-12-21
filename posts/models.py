@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts', null=True)
-    #image = models.ImageField()
+    image = models.ImageField(null=True)
     likes = models.PositiveIntegerField(default=0, blank=True)
     created_at = models.DateField(auto_now_add=True)
     quote = models.TextField(null=True, blank=True)
